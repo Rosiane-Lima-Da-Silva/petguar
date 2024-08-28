@@ -5,19 +5,19 @@ const { width, height } = Dimensions.get('window');
 
 export function Index ({ navigation }) {
   useEffect(() => {
-    // Redireciona para a tela de Login após 2 segundos
+    // Redireciona para a tela de Login após 3 segundos
     const timer = setTimeout(() => {
       navigation.navigate('Login');
     }, 3000); // 3000 ms = 3 segundos
 
-    // Limpa o timer se o componente for desmontado
+    // Limpa o timer 
     return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
     <View style={styles.container}>
       <Image
-        source={require('../imagens/cachorro.webp')} // Substitua pelo caminho da sua logo
+        source={require('../imagens/cachorro.webp')} 
         style={styles.logo}
       />
     </View>
