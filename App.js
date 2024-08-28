@@ -1,6 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Index from './src/telas/Index';
+import {Index} from './src/telas/Index';
 import {Login} from './src/telas/Login';
 import {Cadastro} from './src/telas/Cadastro';
 
