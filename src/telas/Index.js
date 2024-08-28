@@ -1,6 +1,7 @@
 import  { useEffect } from 'react';
-import { Image, StyleSheet, View,} from 'react-native';
+import { Image, StyleSheet, View, Dimensions} from 'react-native';
 
+const { width, height } = Dimensions.get('window');
 
 export function Index ({ navigation }) {
   useEffect(() => {
@@ -31,8 +32,8 @@ const styles = StyleSheet.create({
    
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: width * 1.2,
+    height: height * 0.8,
     resizeMode: 'contain',
   },
 });

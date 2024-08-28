@@ -9,8 +9,7 @@ export function Login ({navigation}) {
             <Text>Tela de Login</Text>
             <Button title='Cadastre-se aqui' onPress={()=>
                  navigation.navigate('Cadastro')}/>
-            <Button title='Voltar' onPress={()=>
-                 navigation.goBack()}/>
+            
         </View>
     );
 }
