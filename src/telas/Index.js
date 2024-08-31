@@ -17,8 +17,16 @@ export function Index ({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../imagens/cachorro.webp')} 
-        style={styles.logo}
+        source={require('../imagens/Telas1.png')} 
+        style={styles.logo1}
+      />
+      <Image
+        source={require('../imagens/logo.png')} 
+        style={styles.logo2}
+      />
+      <Image
+        source={require('../imagens/Telas3.png')} 
+        style={styles.logo3}
       />
     </View>
   );
@@ -29,11 +37,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-   
   },
-  logo: {
-    width: width * 1.2,
-    height: height * 0.8,
+  logo1: {
+    width: width * 0.3,
+    height: height * 0.3,
+    resizeMode: 'contain',
+  },
+  logo2: {
+    width: width * 0.4,
+    height: height * 0.4,
+    resizeMode: 'contain',
+  },
+  logo3: {
+    width: width * 0.3,
+    height: height * 0.3,
     resizeMode: 'contain',
   },
 });

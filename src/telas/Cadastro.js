@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, Alert, ScrollView,Image } from 'react-native';
 
 
 export function Cadastro ({navigation}) {
@@ -19,23 +19,23 @@ export function Cadastro ({navigation}) {
     return(
         <ScrollView contentContainerStyle={styles.container}>    
             <View style={styles.form}>
-                <Text style={styles.label} >Nome</Text>
+            <Image style={styles.img} source={require('../imagens/logo.png')} />
                 <TextInput
+                    placeholder='Nome'
                     style={styles.input}
+                    keyboardType="Nome"
                     onChangeText={setName}
                     value={name}
                 />
-                <Text style={styles.label}>Email</Text>
                 <TextInput
+                    placeholder='E-mail'
                     style={styles.input}
                     keyboardType="email-address"
                     onChangeText={setEmail}
                     value={email}
                 />
-
-
-                <Text style={styles.label}>Senha</Text>
                 <TextInput
+                    placeholder='Senha'
                     style={styles.input}
                     secureTextEntry
                     onChangeText={setPassword}
@@ -60,8 +60,6 @@ const styles = StyleSheet.create({
       padding: 20,
       backgroundColor: '#f5f5f5',
     },
-
-
     form: {
         width: '100%',
       },
@@ -71,13 +69,21 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       },
       input: {
-        height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 15,
-        paddingHorizontal: 10,
+      borderBlockColor: 'black',
+      borderWidth: 2,
+      borderRadius: 10,
+      fontSize: 20,
+      width: '90%',
+      padding: 10,
+      margin: 10,
+      textAlign: 'center',
+      backgroundColor: 'grey',
       },
+      img: {
+        width: 150,
+        height: 150,
+        alignSelf: 'center',
+      }
     });
 
 
