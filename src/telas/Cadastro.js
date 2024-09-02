@@ -28,7 +28,7 @@ export function Cadastro ({navigation}) {
                 <Text style={styles.label}>Email</Text>
                 <TextInput
                     style={styles.input}
-                    keyboardType="email-address"
+                    keyboardType="email"
                     onChangeText={setEmail}
                     value={email}
                 />
@@ -40,7 +40,9 @@ export function Cadastro ({navigation}) {
                     secureTextEntry
                     onChangeText={setPassword}
                     value={password}
+                    
                 />
+
                  <Button title="Cadastrar" onPress={Submit} />
 
 
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
+      alignItems:'center',
       padding: 20,
       backgroundColor: '#f5f5f5',
     },
@@ -69,6 +72,10 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontSize: 16,
         fontWeight: 'bold',
+        marginBottom: 16,
+        position: 'relative'
+        
+
       },
       input: {
         height: 40,
@@ -77,6 +84,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 15,
         paddingHorizontal: 10,
+        borderWidth: 10,
+        borderStyle:'borderRadius'
       },
     });
 
