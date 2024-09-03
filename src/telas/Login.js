@@ -22,19 +22,27 @@ export function Login ({navigation}) {
                     style={styles.input}
                     keyboardType="email-address"
                     value={email}
-                    onChangeText={(text) => setEmail(text)}
-                    
+                    onChangeText={(text) => setEmail(text)} 
                 />
                 <TextInput
                     placeholder='Senha'
                     style={styles.input}
                     secureTextEntry
                     value={password}
-                    onChangeText={(password) => setPassword(password)}                  
-                    
+                    onChangeText={(password) => setPassword(password)}                                
                 />
                 <View style={styles.botao}>
-                <Button title= 'Cadastre-se aqui' onPress={()=>
+                <Button title= 'Login' onPress={()=>
+                 navigation.navigate('')}/>
+                 </View>
+                <View>
+                    <Text>Esqueci minha senha</Text>
+                </View>
+                <View>
+                <Text>Não tem um conta?</Text>
+                </View>
+                <View >
+                <Button style={styles.botao} title= 'Cadastre-se aqui' onPress={()=>
                  navigation.navigate('Cadastro')}/>
                  </View>
         </View>
@@ -46,7 +54,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
-      padding: 20,
+      padding: 100,
       backgroundColor: '#f5f5f5',
     },
     img: {
@@ -69,18 +77,17 @@ const styles = StyleSheet.create({
     botao: {
         borderWidth: 4,
         backgroundColor: 'black',
+        borderRadius: 20,
     },
     nomelogi: {
         fontSize: 20,
         color: 'black',
         alignSelf: 'center',
+        marginTop: 'auto',
     },
     caixalogi: {
         width: 100,
         height: 50,
         alignSelf: 'center',
-        
-
     }
-
 })

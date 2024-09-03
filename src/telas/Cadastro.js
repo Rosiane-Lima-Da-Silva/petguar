@@ -26,7 +26,7 @@ export function Cadastro ({navigation}) {
                 <TextInput
                     placeholder='Nome'
                     style={styles.input}
-                    keyboardType="Nome"
+                    keyboardType="name"
                     onChangeText={setName}
                     value={name}
                 />
@@ -60,18 +60,18 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
-      padding: 20,
+      padding: 100,
       backgroundColor: '#f5f5f5',
     },
     form: {
-        width: '100%',
+      width: '100%',
       },
-      label: {
-        marginBottom: 5,
-        fontSize: 16,
-        fontWeight: 'bold',
+    label: {
+      marginBottom: 5,
+      fontSize: 16,
+      fontWeight: 'bold',
       },
-      input: {
+    input: {
       borderBlockColor: 'black',
       borderWidth: 2,
       borderRadius: 10,
@@ -82,20 +82,21 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       backgroundColor: 'lightgrey',
       },
-      img: {
-        width: 150,
-        height: 150,
-        alignSelf: 'center',
+    img: {
+      width: 150,
+      height: 150,
+      alignSelf: 'center',
       }, 
-      nomecad: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'black',
+    nomecad: {
+      fontSize: 20,
+      alignSelf: 'center',
+      color: 'black',
+      marginTop: 'auto',
       },
-      caixacad: {
-        width: 120,
-        height: 50,
-        alignSelf:'center',
+    caixacad: {
+      width: 100,
+      height: 50,
+      alignSelf:'center',
       }
     });
 

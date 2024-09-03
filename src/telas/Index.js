@@ -1,5 +1,5 @@
 import  { useEffect } from 'react';
-import { Image, StyleSheet, View, Dimensions} from 'react-native';
+import { Image, StyleSheet, View, Dimensions, Text} from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,17 +16,10 @@ export function Index ({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../imagens/Telas1.png')} 
-        style={styles.logo1}
-      />
+      <Text style={styles.texto}>BEM VINDO</Text>
       <Image
         source={require('../imagens/logo.png')} 
-        style={styles.logo2}
-      />
-      <Image
-        source={require('../imagens/Telas3.png')} 
-        style={styles.logo3}
+        style={styles.logo}
       />
     </View>
   );
@@ -38,21 +31,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logo1: {
-    width: width * 0.3,
-    height: height * 0.3,
-    resizeMode: 'contain',
-  },
-  logo2: {
+  logo: {
     width: width * 0.4,
     height: height * 0.4,
     resizeMode: 'contain',
   },
-  logo3: {
-    width: width * 0.3,
-    height: height * 0.3,
-    resizeMode: 'contain',
-  },
+  texto: {
+    fontSize: 20,
+    color: '3FA5A0',
+  }
 });
 
 
