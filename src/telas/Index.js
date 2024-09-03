@@ -8,7 +8,7 @@ export function Index ({ navigation }) {
     // Redireciona para a tela de Login após 3 segundos
     const timer = setTimeout(() => {
       navigation.navigate('Login');
-    }, 3000); // 3000 ms = 3 segundos
+    }, 3000); // 3000 ms = 3 segundos urur
 
     // Limpa o timer 
     return () => clearTimeout(timer);
