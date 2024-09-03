@@ -9,34 +9,37 @@ export function Cadastro ({navigation}) {
 
 
     const Submit = () => {
-        if (name === '' || email === ''|| password === '') {
-          Alert.alert('Erro', 'Por favor, preencha todos os campos.');
-          return;
-        }else {
-        // Aqui você pode enviar os dados para um servidor ou armazená-los localmente
-        Alert.alert('Cadastro realizado com sucesso!', `Nome: ${name}\nEmail: ${email}`);
-        }
-          
-      };
+      if ( email === ''|| password === '') {
+        Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+      }else{
+        navigation.navigate('Login',{ registarEmail: email, registrarPassword: password });
+      }
+      
+    };
     return(
         <ScrollView contentContainerStyle={styles.container}>    
-            <View style={styles.form}>
-            <Image style={styles.img} source={require('../imagens/logo.png')} />
-                <TextInput
-                    placeholder='Nome'
-                    style={styles.input}
-                    keyboardType="Nome"
-                    onChangeText={setName}
-                    value={name}
-                />
-                <TextInput
-                    placeholder='E-mail'
-                    style={styles.input}
-                    keyboardType="email"
-                    onChangeText={setEmail}
-                    value={email}
-                />
-                <TextInput
+          <Image style={styles.img} source={require('../imagens/logo.png')} />
+           
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder='Nome'
+              style={styles.input}
+              keyboardType="name"
+              onChangeText={setName}
+              value={name}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder='E-mail'
+              style={styles.input}
+              keyboardType="email"
+              onChangeText={setEmail}
+              value={email}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
                     placeholder='Senha'
                     style={styles.input}
                     secureTextEntry
@@ -44,57 +47,49 @@ export function Cadastro ({navigation}) {
                     value={password}
                     
                 />
+          </View>   
 
-                 <Button title="Cadastrar" onPress={Submit} />
+          <Button title="Cadastrar" onPress={Submit} />
 
+        </ScrollView> 
 
-                <Button title='Voltar' onPress={()=> navigation.goBack()}/>
-            </View>
-
-
-        </ScrollView>    
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems:'center',
-      padding: 20,
-      backgroundColor: '#f5f5f5',
-    },
-    form: {
-        width: '100%',
-      },
-      label: {
-        marginBottom: 5,
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 16,
-        position: 'relative'
-        
-
-      },
-      input: {
-      borderBlockColor: 'black',
-      borderWidth: 2,
-      borderRadius: 10,
-      fontSize: 20,
-      width: '90%',
-      padding: 10,
-      margin: 10,
-      textAlign: 'center',
-      backgroundColor: 'grey',
- 
+    const styles = StyleSheet.create({
+      container: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        padding: 20,
+        alignItems: 'center',
+        backgroundColor: '#f5f5f5'
       },
       img: {
-        width: 150,
-        height: 150,
-        alignSelf: 'center',
-      }
+        width: 140,
+        height: 140,
+        alignSelf:'center'
+      },
+      inputContainer: {
+        width: '80%',
+        marginBottom: 15,
+        
+      },
+      input: {
+        borderBlockColor: 'black',
+        borderWidth: 2,
+        borderRadius: 10,
+        fontSize: 20,
+        width: '90%',
+        padding: 10,
+        margin: 10,
+        textAlign: 'center',
+        backgroundColor: 'lightgrey',
+        color: 'black',
+      },
     });
 
+
+
+
+     
 
 
