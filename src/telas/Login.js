@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },
     botao: {
         borderWidth: 4,
-        backgroundColor: 'red',
+        backgroundColor: 'black',
     },
     nomelogi: {
         fontSize: 20,
