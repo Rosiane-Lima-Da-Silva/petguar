@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
       margin: 10,
       textAlign: 'center',
       backgroundColor: 'lightgrey',
-      color: 'pink',
+      color: 'black',
     },
     botao: {
         borderWidth: 4,
