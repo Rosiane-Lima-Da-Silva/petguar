@@ -14,16 +14,20 @@ export function Itens({ navigation }) {
       </View>
 
       <View style={styles.menu}>
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={()=>
+                    navigation.navigate('Comida')}>
           <Text style={styles.menuText}>Comida</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={()=>
+                    navigation.navigate('Agua')}>
           <Text style={styles.menuText}>Agua</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={()=>
+                    navigation.navigate('Monitoramento')}>
           <Text style={styles.menuText}>Monitoramento</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem} onPress={()=>
+                    navigation.navigate('Porta')}>
           <Text style={styles.menuText}>Porta</Text>
         </TouchableOpacity>
       </View>

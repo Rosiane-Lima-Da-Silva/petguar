@@ -12,7 +12,7 @@ export function Cadastro ({navigation}) {
       if ( email === ''|| password === '') {
         Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       }else{
-        navigation.navigate('Login',{ registarEmail: email, registrarPassword: password });
+        navigation.navigate('Login',{ registrarEmail: email, registrarPassword: password });
       }
       
     };
@@ -49,7 +49,7 @@ export function Cadastro ({navigation}) {
                 />
           </View>   
 
-          <Button title="Cadastrar" onPress={Submit} />
+          <Button title="Cadastrar" onPress={Submit} color="green"/>
 
         </ScrollView> 
 
@@ -64,12 +64,12 @@ export function Cadastro ({navigation}) {
         backgroundColor: '#f5f5f5'
       },
       img: {
-        width: 140,
-        height: 140,
+        width: 250,
+        height: 180,
         alignSelf:'center'
       },
       inputContainer: {
-        width: '80%',
+        width: '50%',
         marginBottom: 15,
         
       },

@@ -5,7 +5,7 @@ import { View, Text, Button, Image, StyleSheet, ScrollView,TouchableOpacity, Tex
 
 
 
-export function Login ({navigation}) {
+export function Login ({route, navigation}) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -34,7 +34,7 @@ export function Login ({navigation}) {
                     />
                     <View style={styles.button}>
                     <Button title= 'Login' onPress={()=>
-                    navigation.navigate('Itens')}/>
+                    navigation.navigate('Itens') } color="green"/>
                     </View>
                     <View>
                         <Text>Esqueci minha senha</Text>
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       padding: 100,
       backgroundColor: '#f5f5f5',
+      
     },
     img: {
         width: 140,
