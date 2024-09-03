@@ -1,19 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert, ScrollView, Image, TouchableOpacity } from 'react-native';
+
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Se estiver usando Expo para ícones
 
-export function Cadastro({ navigation }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const Submit = () => {
-    if (!name || !email || !password) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos.');
-      return;
-    }
-    Alert.alert('Cadastro realizado com sucesso!', `Nome: ${name}\nEmail: ${email}`);
-  };
+export function Itens({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

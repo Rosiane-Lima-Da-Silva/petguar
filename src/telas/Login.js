@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View, Text, Button, Image, StyleSheet, ScrollView, TextInput } from "react-native";
+import { Touchable, TouchableOpacity } from "react-native-web";
 
 
 
@@ -31,9 +32,9 @@ export function Login ({navigation}) {
                     value={password}
                     onChangeText={(password) => setPassword(password)}                                
                 />
-                <View style={styles.botao}>
+                <View style={styles.button}>
                 <Button title= 'Login' onPress={()=>
-                 navigation.navigate('')}/>
+                 navigation.navigate('Itens')}/>
                  </View>
                 <View>
                     <Text>Esqueci minha senha</Text>
@@ -41,9 +42,13 @@ export function Login ({navigation}) {
                 <View>
                 <Text>Não tem um conta?</Text>
                 </View>
-                <View >
-                <Button style={styles.botao} title= 'Cadastre-se aqui' onPress={()=>
-                 navigation.navigate('Cadastro')}/>
+                <View>
+                <TouchableOpacity style={styles.button} onPress={()=>
+                 navigation.navigate('Cadastro')}>
+                <Text style={styles.text}>
+                    Cadastre-se
+                </Text>
+                 </TouchableOpacity>
                  </View>
         </View>
         </ScrollView>
@@ -74,9 +79,9 @@ const styles = StyleSheet.create({
       backgroundColor: 'lightgrey',
       color: 'black',
     },
-    botao: {
+    button: {
         borderWidth: 4,
-        backgroundColor: 'black',
+        backgroundColor: 'green',
         borderRadius: 20,
     },
     nomelogi: {
@@ -89,5 +94,9 @@ const styles = StyleSheet.create({
         width: 100,
         height: 50,
         alignSelf: 'center',
-    }
+    }, 
+    text: {
+        color: 'black',
+        
+    }    
 })
