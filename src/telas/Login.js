@@ -2,14 +2,23 @@ import { useState } from "react";
 import { View, Text, Button, Image, StyleSheet, ScrollView,TouchableOpacity, TextInput } from "react-native";
 
 
-
-
-
-export function Login ({route, navigation}) {
+export function Login ({ route,navigation}) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+
+    const { registrarEmail, registrarPassword } = route.params || {};
+
+    const Logar = ()=>{
+        if (email !== registrarEmail || password !== registrarPassword) {
+            Alert.alert('Erro', 'Nome de usuário ou senha incorretos!');
+          }else {
+            Alert.alert('Sucesso', 'Login realizado com sucesso!');
+
+            navigation.navigate('Itens')
+          }
+    };
 
     return(
         <ScrollView contentContainerStyle={styles.container}>
@@ -32,24 +41,21 @@ export function Login ({route, navigation}) {
                         value={password}
                         onChangeText={(password) => setPassword(password)}                                
                     />
-                    <View style={styles.button}>
-                    <Button title= 'Login' onPress={()=>
-                    navigation.navigate('Itens') } color="green"/>
-                    </View>
-                    <View>
-                        <Text>Esqueci minha senha</Text>
-                    </View>
-                    <View>
+                <TouchableOpacity style={styles.button} onPress={Logar}>
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
+                <View>
+                    <Text>Esqueci minha senha</Text>
+                </View>
+                <View>
                     <Text>Não tem um conta?</Text>
-                    </View>
-                    <View>
-                    <TouchableOpacity style={styles.button} onPress={()=>
+                </View>
+                <TouchableOpacity style={styles.button} onPress={()=>
                     navigation.navigate('Cadastro')}>
                     <Text style={styles.text}>
                         Cadastre-se
                     </Text>
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );
@@ -79,11 +85,18 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       backgroundColor: 'lightgrey',
       color: 'black',
+      alignSelf: 'center',
     },
     button: {
-        borderWidth: 4,
         backgroundColor: 'green',
         borderRadius: 20,
+        padding: 10,
+        alignItems: 'center',
+        margin: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 18,
     },
     nomelogi: {
         fontSize: 20,
@@ -98,6 +111,6 @@ const styles = StyleSheet.create({
     }, 
     text: {
         color: 'black',
-        
+        textAlign: 'center',
     }    
 })

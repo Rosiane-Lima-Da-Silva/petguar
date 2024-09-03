@@ -7,8 +7,7 @@ import {Itens} from './src/telas/Itens';
 import { Comida } from './src/telas/Comida';
 import { Agua } from './src/telas/Agua';
 import { Monitoramento } from './src/telas/Monitoramento';
-import { Porta } from './src/telas/Porta';
-
+import {Porta} from './src/telas/Porta';
 
 const Stack = createNativeStackNavigator();
 

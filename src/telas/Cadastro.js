@@ -9,7 +9,7 @@ export function Cadastro ({navigation}) {
 
 
     const Submit = () => {
-      if ( email === ''|| password === '') {
+      if (name === '' ||email === ''|| password === '') {
         Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       }else{
         navigation.navigate('Login',{ registrarEmail: email, registrarPassword: password });
@@ -64,9 +64,10 @@ export function Cadastro ({navigation}) {
         backgroundColor: '#f5f5f5'
       },
       img: {
-        width: 250,
-        height: 180,
-        alignSelf:'center'
+        width: 200,
+        height: 150,
+        alignSelf:'center',
+        marginBottom: 20,
       },
       inputContainer: {
         width: '50%',
