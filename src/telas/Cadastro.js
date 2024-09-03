@@ -20,6 +20,9 @@ export function Cadastro ({navigation}) {
         <ScrollView contentContainerStyle={styles.container}>    
             <View style={styles.form}>
             <Image style={styles.img} source={require('../imagens/logo.png')} />
+            <View style={styles.caixacad}>
+              <Text style={styles.nomecad}>Cadastro</Text>
+            </View>
                 <TextInput
                     placeholder='Nome'
                     style={styles.input}
@@ -77,12 +80,22 @@ const styles = StyleSheet.create({
       padding: 10,
       margin: 10,
       textAlign: 'center',
-      backgroundColor: 'grey',
+      backgroundColor: 'lightgrey',
       },
       img: {
         width: 150,
         height: 150,
         alignSelf: 'center',
+      }, 
+      nomecad: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'black',
+      },
+      caixacad: {
+        width: 120,
+        height: 50,
+        alignSelf:'center',
       }
     });
 

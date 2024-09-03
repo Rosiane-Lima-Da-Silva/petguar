@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Button,Image, StyleSheet, ScrollView, TextInput } from "react-native";
+import { View, Text, Button, Image, StyleSheet, ScrollView, TextInput } from "react-native";
 
 
 
@@ -13,10 +13,11 @@ export function Login ({navigation}) {
     return(
         <ScrollView contentContainerStyle={styles.container}>
         <View>
-            <Text>Tela de Login</Text>
-            <Image style={styles.img} source={require('../imagens/logo.png')} />
-            
-                 <TextInput
+        <Image style={styles.img} source={require('../imagens/logo.png')} />
+            <View style={styles.caixalogi}>
+                <Text style={styles.nomelogi}>Login</Text>
+            </View>       
+                 <TextInput 
                     placeholder='E-mail'
                     style={styles.input}
                     keyboardType="email-address"
@@ -32,8 +33,10 @@ export function Login ({navigation}) {
                     onChangeText={(password) => setPassword(password)}                  
                     
                 />
-                <Button title='Cadastre-se aqui' onPress={()=>
+                <View style={styles.botao}>
+                <Button title= 'Cadastre-se aqui' onPress={()=>
                  navigation.navigate('Cadastro')}/>
+                 </View>
         </View>
         </ScrollView>
     );
@@ -47,8 +50,37 @@ const styles = StyleSheet.create({
       backgroundColor: '#f5f5f5',
     },
     img: {
-        width: 150,
-        height: 150,
+        width: 140,
+        height: 140,
         alignSelf: 'center',
     },
+    input:{
+      borderBlockColor: 'black',
+      borderWidth: 2,
+      borderRadius: 10,
+      fontSize: 20,
+      width: '90%',
+      padding: 10,
+      margin: 10,
+      textAlign: 'center',
+      backgroundColor: 'lightgrey',
+      color: 'pink',
+    },
+    botao: {
+        borderWidth: 4,
+        backgroundColor: 'red',
+    },
+    nomelogi: {
+        fontSize: 20,
+        color: 'black',
+        alignSelf: 'center',
+    },
+    caixalogi: {
+        width: 100,
+        height: 50,
+        alignSelf: 'center',
+        
+
+    }
+
 })
