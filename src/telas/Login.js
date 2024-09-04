@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { View, Text, Button, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Dimensions, Alert } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Dimensions } from "react-native";
 
 export function Login ({ route, navigation }) {
 
@@ -45,13 +45,17 @@ export function Login ({ route, navigation }) {
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
                 <View>
-                    <Text>Esqueci minha senha</Text>
+                <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('ResgateSenha')}>
+                    <Text style={styles.text2}>
+                        Esqueceu a senha?
+                    </Text>
+                </TouchableOpacity>
                 </View>
-                <View>
-                    <Text>Não tem uma conta?</Text>
+                <View style={styles.textconta}>
+                    <Text>Não tem conta?</Text>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cadastro')}>
-                    <Text style={styles.text}>
+                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Cadastro')}>
+                    <Text style={styles.text2}>
                         Cadastre-se
                     </Text>
                 </TouchableOpacity>
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     input: {
         borderColor: 'black',
         borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 20,
         fontSize: 20,
         width: '90%',
         padding: 10,
@@ -91,11 +95,32 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         alignItems: 'center',
-        margin: 10,
+        margin: 20,
+        width: '50%',
+        marginLeft: '25%',
+    },
+    button2: {
+        borderRadius: 10,
+        padding: 10,
+        alignItems: 'center',
+        margin: 20,
+        width: '32%',
+        backgroundColor: 'pink',
+        alignSelf: 'flex-end',
+       
+    },
+    button3: {
+        borderRadius: 10,
+        padding: 10,
+        alignItems: 'center',
+        margin: 20,
+        width: '32%',
+        backgroundColor: 'grey',
+        alignSelf: 'flex-end',
     },
     buttonText: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 15,
     },
     nomelogi: {
         fontSize: 20,
@@ -109,9 +134,22 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     }, 
     text: {
-        color: 'black',
+        color: 'white',
         textAlign: 'center',
+    },
+    text2: {
+        color: 'blue',
+        textAlign: 'center',
+        fontSize: 10,
+    },
+    textconta:{
+        
+        width: '50%',
+        marginBottom: -50,
+        marginLeft: 30,
+        
     }
+
 });
 // Detectar a largura da tela e ajustar dinamicamente
 const { width } = Dimensions.get('window');
