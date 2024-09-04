@@ -51,7 +51,7 @@ export function Cadastro ({navigation}) {
                 />
           </View>   
 
-          <Button title="Cadastrar" onPress={Submit} color="green"/>
+          <Button title="Cadastrar" onPress={Submit} color="#3FA5A0"/>
 
         </ScrollView> 
 
