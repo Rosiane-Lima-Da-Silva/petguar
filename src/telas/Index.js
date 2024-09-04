@@ -1,9 +1,9 @@
-import  { useEffect } from 'react';
-import { Image, StyleSheet, View, Dimensions, Text} from 'react-native';
+import { useEffect } from 'react';
+import { Image, StyleSheet, View, Dimensions, Text } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-export function Index ({ navigation}) {
+export function Index({ navigation }) {
   useEffect(() => {
     // Redireciona para a tela de Login após 3 segundos
     const timer = setTimeout(() => {
@@ -18,7 +18,7 @@ export function Index ({ navigation}) {
     <View style={styles.container}>
       <Text style={styles.texto}>BEM VINDO</Text>
       <Image
-        source={require('../imagens/logo.png')} 
+        source={require('../imagens/logo.png')}
         style={styles.logo}
       />
     </View>
@@ -37,13 +37,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   texto: {
-    fontSize: 20,
-    color: '3FA5A0',
+    fontSize: 36, 
+    fontWeight: 'bold', 
+    color: '#3FA5A0', 
+    textAlign: 'center', 
+    marginBottom: 20, 
   }
 });
-
-
-
-
-       
-     

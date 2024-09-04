@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { View, Button, TextInput, StyleSheet, Alert, ScrollView,Image } from 'react-native';
 
@@ -64,7 +66,7 @@ export function Cadastro ({navigation}) {
         backgroundColor: '#f5f5f5'
       },
       img: {
-        width: 200,
+        width: 150,
         height: 150,
         alignSelf:'center',
         marginBottom: 20,
@@ -72,6 +74,7 @@ export function Cadastro ({navigation}) {
       inputContainer: {
         width: '50%',
         marginBottom: 15,
+        alignItems: 'center',
         
       },
       input: {
