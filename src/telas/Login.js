@@ -46,7 +46,7 @@ export function Login ({ route, navigation }) {
                     <Text>Esqueci minha senha</Text>
                 </View>
                 <View>
-                    <Text>Não tem uma conta? Cadastre-se</Text>
+                    <Text>Não tem uma conta?</Text>
                 </View>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cadastro')}>
                     <Text style={styles.text}>
