@@ -55,7 +55,7 @@ export function Login ({ route, navigation }) {
                     <Text>Não tem conta?</Text>
                 </View>
                 <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Cadastro')}>
-                    <Text style={styles.text2}>
+                    <Text style={styles.text3}>
                         Cadastre-se
                     </Text>
                 </TouchableOpacity>
@@ -105,18 +105,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 20,
         width: '32%',
-        backgroundColor: 'pink',
         alignSelf: 'flex-end',
-       
     },
     button3: {
         borderRadius: 10,
-        padding: 10,
+        padding: 1,
         alignItems: 'center',
-        margin: 20,
-        width: '32%',
-        backgroundColor: 'grey',
-        alignSelf: 'flex-end',
+        width: 200,
+        alignSelf: 'center',
+        
     },
     buttonText: {
         color: 'white',
@@ -139,15 +136,23 @@ const styles = StyleSheet.create({
     },
     text2: {
         color: 'blue',
-        textAlign: 'center',
-        fontSize: 10,
+        textAlign: 'right',
+        fontSize: 14,
+        marginBottom: '10%', 
+        marginRight: '50%',
+        width: 200,
     },
+    text3: {
+        color: 'red',
+        textAlign: 'center',
+        fontSize: 14,       
+        width: 100,
+        marginRight: 100,
+    },    
     textconta:{
-        
         width: '50%',
-        marginBottom: -50,
-        marginLeft: 30,
-        
+        marginBottom: -49,
+        marginLeft: 50,
     }
 
 });

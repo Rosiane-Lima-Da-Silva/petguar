@@ -66,13 +66,13 @@ export function Cadastro ({navigation}) {
         backgroundColor: '#f5f5f5'
       },
       img: {
-        width: 150,
-        height: 150,
+        width: 140,
+        height: 140,
         alignSelf:'center',
         marginBottom: 20,
       },
       inputContainer: {
-        width: '50%',
+        width: '90%',
         marginBottom: 15,
         alignItems: 'center',
         
@@ -80,7 +80,7 @@ export function Cadastro ({navigation}) {
       input: {
         borderBlockColor: 'black',
         borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 20,
         fontSize: 20,
         width: '90%',
         padding: 10,
