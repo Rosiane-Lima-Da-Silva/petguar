@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   menuItem: {
     backgroundColor: '#cccccc',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 35,
     width: '80%',
     marginVertical: 5,
     alignItems: 'center',
