@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // For the menu icon
+import { Ionicons } from '@expo/vector-icons'; // Para o ícone do menu
 
-// Get the screen dimensions
+// Obter as dimensões da tela
 const { width } = Dimensions.get('window');
 
 export function Comida({ navigation }) {
@@ -13,13 +13,13 @@ export function Comida({ navigation }) {
         <Ionicons name="menu" size={32} color="black" />
       </TouchableOpacity>
 
-      {/* Centered Image */}
+      {/* Imagem Centralizada */}
       <Image style={styles.image} source={require('../imagens/logo.png')} />
 
-      {/* Title */}
+      {/* Título */}
       <Text style={styles.title}>Nivel da ração</Text>
 
-      {/* Buttons */}
+      {/* Botões */}
       <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => alert('Liberação Automática')}>
         <Text style={styles.buttonText}>Programar Horário</Text>
       </TouchableOpacity>
@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
   menuIcon: {
     position: 'absolute',
     top: 20,
-    left: 20, // Left side of the screen
+    left: 20, // Lado esquerdo da tela
     zIndex: 1,
   },
   image: {
     width: 120,
     height: 120,
-    marginBottom: 20, // Adds space between the image and the title
-    alignSelf: 'center', // Align the image to the center of the screen
+    marginBottom: 20, // Adiciona espaço entre a imagem e o título
+    alignSelf: 'center', // Alinhe a imagem ao centro da tela
   },
   title: {
     fontSize: 24,
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
-  // Responsiveness based on screen width
+  // Responsividade com base na largura da tela
   responsiveButton: {
-    width: width > 600 ? '40%' : '80%',  // 40% width on larger screens (PC), 80% on smaller screens (smartphone)
+    width: width > 600 ? '40%' : '80%',  // 40% de largura em telas maiores (PC), 80% em telas menores (smartphone)
   },
 });
