@@ -11,7 +11,7 @@ export function Login ({ route, navigation }) {
     const { registrarEmail, registrarPassword } = route.params || {};
 
     const Logar = () => {
-        if ((email === "admin" && password === "admin") || 
+        if ((email === "x" && password === "x") || 
             (email === registrarEmail && password === registrarPassword)) {
             window.alert("Sucesso, Login realizado com sucesso!");
             navigation.navigate('Itens');
