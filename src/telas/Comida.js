@@ -20,7 +20,7 @@ export function Comida({ navigation }) {
       <Text style={styles.title}>Nivel da ração</Text>
 
       {/* Botões */}
-      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => alert('Liberação Automática')}>
+      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => navigation.navigate('Horario')}>
         <Text style={styles.buttonText}>Programar Horário</Text>
       </TouchableOpacity>
 
