@@ -1,7 +1,7 @@
 
 
 import React, { useState } from 'react';
-import { View, Button, TextInput, StyleSheet, Alert, ScrollView,Image } from 'react-native';
+import { View, TouchableOpacity,Text, TextInput, StyleSheet, Alert, ScrollView,Image } from 'react-native';
 
 
 export function Cadastro ({navigation}) {
@@ -10,7 +10,7 @@ export function Cadastro ({navigation}) {
     const [password, setPassword] = useState('');
 
 
-    const Submit = () => {
+    const Cadastro = () => {
       if (name === '' ||email === ''|| password === '') {
         Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       }else{
@@ -50,8 +50,9 @@ export function Cadastro ({navigation}) {
                     
                 />
           </View>   
-
-          <Button title="Cadastrar" onPress={Submit} color="#3FA5A0"/>
+          <TouchableOpacity style={styles.button} onPress={Cadastro}>
+            <Text style={styles.buttonText}>Cadastrar</Text>
+          </TouchableOpacity>
 
         </ScrollView> 
 
@@ -89,6 +90,18 @@ export function Cadastro ({navigation}) {
         backgroundColor: 'lightgrey',
         color: 'black',
       },
+      button: {
+        backgroundColor: '#3FA5A0',
+        borderRadius: 20,
+        padding: 10,
+        alignItems: 'center',
+        margin: 20,
+        width: '50%',
+      },
+      buttonText: {
+        color: 'white',
+        fontSize: 15,
+      }
     });
 
 

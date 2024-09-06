@@ -42,21 +42,18 @@ export function Login ({ route, navigation }) {
                     onChangeText={(password) => setPassword(password)}                                
                 />
                 <TouchableOpacity style={styles.button} onPress={Logar}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText}>Logar</Text>
                 </TouchableOpacity>
                 <View>
                 <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('ResgateSenha')}>
-                    <Text style={styles.text2}>
+                    <Text style={styles.text}>
                         Esqueceu a senha?
                     </Text>
                 </TouchableOpacity>
                 </View>
-                <View style={styles.textconta}>
-                    <Text>Não tem conta?</Text>
-                </View>
                 <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Cadastro')}>
-                    <Text style={styles.text3}>
-                        Cadastre-se
+                    <Text style={styles.text2}>
+                       Não tem uma conta?Cadastre-se
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -104,8 +101,8 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         margin: 20,
-        width: '32%',
-        alignSelf: 'flex-end',
+        width: '80%',
+        alignSelf: 'center',
     },
     button3: {
         borderRadius: 10,
@@ -113,7 +110,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 200,
         alignSelf: 'center',
-        
     },
     buttonText: {
         color: 'white',
@@ -131,10 +127,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     }, 
     text: {
-        color: 'white',
-        textAlign: 'center',
-    },
-    text2: {
         color: 'blue',
         textAlign: 'right',
         fontSize: 14,
@@ -142,18 +134,14 @@ const styles = StyleSheet.create({
         marginRight: '50%',
         width: 200,
     },
-    text3: {
-        color: 'red',
+    text2: {
+        color: 'black',
         textAlign: 'center',
         fontSize: 14,       
-        width: 100,
-        marginRight: 100,
-    },    
-    textconta:{
-        width: '50%',
-        marginBottom: -49,
-        marginLeft: 50,
-    }
+        width: '100%',
+        bottom: 30,
+        borderRadius: 30,
+    }       
 
 });
 // Detectar a largura da tela e ajustar dinamicamente
