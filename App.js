@@ -9,6 +9,7 @@ import { Agua } from './src/telas/Agua';
 import { Monitoramento } from './src/telas/Monitoramento';
 import {Porta} from './src/telas/Porta';
 import { ResgateSenha } from './src/telas/ResgateSenha';
+import { Horario } from './src/telas/Horario';
 
 
 const Stack = createNativeStackNavigator();
@@ -30,7 +31,9 @@ export default function App()  {
           <Stack.Screen  name='Agua' component={Agua}></Stack.Screen> 
           <Stack.Screen  name='Monitoramento' component={Monitoramento}></Stack.Screen>
           <Stack.Screen  name='Porta' component={Porta}></Stack.Screen> 
-          <Stack.Screen  name='ResgateSenha' component={ResgateSenha}></Stack.Screen>  
+          <Stack.Screen  name='ResgateSenha' component={ResgateSenha}></Stack.Screen>
+          <Stack.Screen  name='Horario' component={Horario}></Stack.Screen>  
+
         </Stack.Navigator>
       </NavigationContainer>
  
