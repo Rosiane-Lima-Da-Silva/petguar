@@ -1,24 +1,31 @@
 
 import { useState } from "react";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Dimensions } from "react-native";
+import { auth } from "./firebase.config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-export function Login ({ route, navigation }) {
+
+
+export  function Login ({  navigation }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
+    
 
-    const { registrarEmail, registrarPassword } = route.params || {};
 
-    const Logar = () => {
-        if ((email === "admin" && password === "admin") || 
-            (email === registrarEmail && password === registrarPassword)) {
-            window.alert("Sucesso, Login realizado com sucesso!");
-            navigation.navigate('Itens');
-        } else {
-            window.alert("Erro, Nome de usuário ou senha incorretos!");
-        }
-    };
+    function Logar () {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredencial) => {
+                const user =userCredencial;
+                alert('Login efetuado com sucesso!');
+                console.log(user);
+                navigation.navigate('Itens');
+        })
+        .catch((error) =>{
+            alert(error.message);
+        });
+    }
+        
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -42,18 +49,18 @@ export function Login ({ route, navigation }) {
                     onChangeText={(password) => setPassword(password)}                                
                 />
                 <TouchableOpacity style={styles.button} onPress={Logar}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText}>Logar</Text>
                 </TouchableOpacity>
                 <View>
                 <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('ResgateSenha')}>
-                    <Text style={styles.text2}>
+                    <Text style={styles.text}>
                         Esqueceu a senha?
                     </Text>
                 </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Cadastro')}>
                     <Text style={styles.text2}>
-                        Cadastre-se
+                       Não tem uma conta?Cadastre-se
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -88,7 +95,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     button: {
-        backgroundColor: 'green',
+        backgroundColor: '#3FA5A0',
         borderRadius: 20,
         padding: 10,
         alignItems: 'center',
@@ -101,18 +108,22 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         margin: 20,
+
         width: '32%',
         backgroundColor: 'pink',
         marginLeft: '35%',
        
     },
+ 
     button3: {
         borderRadius: 10,
-        padding: 10,
+        padding: 1,
         alignItems: 'center',
+
         margin: 20,
         width: '32%',
         backgroundColor: 'grey',
+        width: 200,
         alignSelf: 'center',
     },
     buttonText: {
@@ -133,12 +144,15 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 15,
+       
     },
     text2: {
-        color: 'blue',
+        color: 'black',
         textAlign: 'center',
         fontSize: 10,
     },
-    
+          
 });
+
+
 

@@ -16,7 +16,7 @@ export function Itens({ navigation }) {
           <Text style={styles.menuText}>Comida</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Agua')}>
-          <Text style={styles.menuText}>Agua</Text>
+          <Text style={styles.menuText}>Água</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Monitoramento')}>
           <Text style={styles.menuText}>Monitoramento</Text>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   menuItem: {
     backgroundColor: '#cccccc',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 35,
     width: '80%',
     marginVertical: 5,
     alignItems: 'center',
