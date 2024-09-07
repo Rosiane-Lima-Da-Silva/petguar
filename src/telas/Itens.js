@@ -1,33 +1,27 @@
-
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Se estiver usando Expo para ícones
 
 export function Itens({ navigation }) {
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuIcon}>
           <Ionicons name="menu" size={32} color="black" />
         </TouchableOpacity>
         <Image style={styles.img} source={require('../imagens/logo.png')} />
       </View>
 
       <View style={styles.menu}>
-        <TouchableOpacity style={styles.menuItem} onPress={()=>
-                    navigation.navigate('Comida')}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Comida')}>
           <Text style={styles.menuText}>Comida</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem} onPress={()=>
-                    navigation.navigate('Agua')}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Agua')}>
           <Text style={styles.menuText}>Agua</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem} onPress={()=>
-                    navigation.navigate('Monitoramento')}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Monitoramento')}>
           <Text style={styles.menuText}>Monitoramento</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem} onPress={()=>
-                    navigation.navigate('Porta')}>
+        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Porta')}>
           <Text style={styles.menuText}>Porta</Text>
         </TouchableOpacity>
       </View>
@@ -42,15 +36,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
   },
+  menuIcon: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
   img: {
-    width: 150,
-    height: 150,
-    alignSelf: 'center',
+    width: 140,
+    height: 140,
   },
   menu: {
     alignItems: 'center',
