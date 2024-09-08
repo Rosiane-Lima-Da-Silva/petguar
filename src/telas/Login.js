@@ -52,15 +52,15 @@ export  function Login ({  navigation }) {
                     <Text style={styles.buttonText}>Logar</Text>
                 </TouchableOpacity>
                 <View>
-                <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('ResgateSenha')}>
-                    <Text style={styles.text}>
+                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('ResgateSenha')}>
+                    <Text style={styles.text2}>
                         Esqueceu a senha?
                     </Text>
                 </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Cadastro')}>
+                <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('Cadastro')}>
                     <Text style={styles.text2}>
-                       Não tem uma conta?Cadastre-se
+                       Não tem uma conta? Cadastre-se
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -99,32 +99,26 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         alignItems: 'center',
-        margin: 20,
-        width: '50%',
-        marginLeft: '25%',
+        width: '30%',
+        alignSelf: 'center',
+        margin: '4%'
     },
     button2: {
         borderRadius: 10,
         padding: 10,
         alignItems: 'center',
-        margin: 20,
-
-        width: '32%',
-        backgroundColor: 'pink',
-        marginLeft: '35%',
-       
+        width: '46%',
+        alignSelf:'center',
+        margin: '2%',
     },
  
     button3: {
         borderRadius: 10,
         padding: 1,
         alignItems: 'center',
-
-        margin: 20,
-        width: '32%',
-        backgroundColor: 'grey',
-        width: 200,
+        width: '50%',
         alignSelf: 'center',
+        margin:'2%',
     },
     buttonText: {
         color: 'white',
@@ -143,13 +137,13 @@ const styles = StyleSheet.create({
     }, 
     text: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 14,
        
     },
     text2: {
         color: 'black',
         textAlign: 'center',
-        fontSize: 10,
+        fontSize: 14,
     },
           
 });

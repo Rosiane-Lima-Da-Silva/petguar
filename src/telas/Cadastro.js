@@ -1,7 +1,7 @@
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { View, TouchableOpacity,Text, TextInput, StyleSheet, Alert, ScrollView,Image } from 'react-native';
+import { View, TouchableOpacity,Text, TextInput, StyleSheet, ScrollView,Image } from 'react-native';
 import { auth } from './firebase.config';
 
 export function Cadastro ({navigation}) {
@@ -9,15 +9,16 @@ export function Cadastro ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmarSenha, setConfirmPassword] = useState('');
+
  
     function Cadastrar  () {
       if (name === '' ||email === ''|| password === ''|| confirmarSenha === '') {
-          alert('Erro', 'Por favor, preencha todos os campos.');
+        alert('Por favor, preencha todos os campos.');
           return;
 
       }
       if(password !== confirmarSenha){
-        alert('a senha e a confirmação de senha não são iguais');
+        alert('A senha e a confirmação de senha não são iguais');
         return;
       } else{
         createUserWithEmailAndPassword(auth, email, password)
