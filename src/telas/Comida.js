@@ -1,15 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Para o ícone do menu
+import * as Progress from 'react-native-progress'; // Para o gráfico de progresso
+import mqtt from 'mqtt'; // Biblioteca MQTT
 
 // Obter as dimensões da tela
 const { width } = Dimensions.get('window');
 
 export function Comida({ navigation }) {
+  const [progress, setProgress] = useState(0); // Estado para armazenar a porcentagem
+
+  useEffect(() => {
+    // Conectar ao broker MQTT
+    const client = mqtt.connect('mqtt://broker.hivemq.com:1883'); // Exemplo de broker público
+
+    // Assinar o tópico que envia os dados de porcentagem
+    client.on('connect', () => {
+      client.subscribe('alimentador/porcentagem', (err) => {
+        if (!err) {
+          console.log('Conectado ao broker MQTT e inscrito no tópico');
+        }
+      });
+    });
+
+    // Atualizar o estado de progresso com os valores recebidos de MQTT
+    client.on('message', (topic, message) => {
+      if (topic === 'alimentador/porcentagem') {
+        const receivedValue = parseFloat(message.toString());
+        if (!isNaN(receivedValue)) {
+          setProgress(receivedValue / 100); // Atualizar o progresso com o valor entre 0 e 1
+        }
+      }
+    });
+
+    // Limpeza na desmontagem do componente
+    return () => {
+      client.end(); // Desconectar o cliente MQTT ao desmontar o componente
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* Menu Icon */}
-      <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.openDrawer()}>
+      <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.navigate('Menu')}>
         <Ionicons name="menu" size={32} color="black" />
       </TouchableOpacity>
 
@@ -17,7 +50,19 @@ export function Comida({ navigation }) {
       <Image style={styles.image} source={require('../imagens/logo.png')} />
 
       {/* Título */}
-      <Text style={styles.title}>Nivel da ração</Text>
+      <Text style={styles.title}>Nível da ração</Text>
+
+      {/* Gráfico de Progresso */}
+      <Progress.Circle
+        size={120}
+        progress={progress} // Recebe o valor de progresso (entre 0 e 1)
+        showsText={true}
+        formatText={() => `${Math.round(progress * 100)}%`} // Mostra a porcentagem
+        color="#3FA5A0"
+        borderWidth={2}
+        thickness={8}
+        textStyle={{ fontWeight: 'bold', fontSize: 20 }}
+      />
 
       {/* Botões */}
       <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => navigation.navigate('Horario')}>
@@ -54,7 +99,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 40,
+    marginBottom: 20, // Espaço antes do gráfico de progresso
     textAlign: 'center',
     color: '#333',
   },

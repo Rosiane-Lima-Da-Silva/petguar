@@ -5,7 +5,7 @@ export function Itens({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuIcon}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')} style={styles.menuIcon}>
           <Ionicons name="menu" size={32} color="black" />
         </TouchableOpacity>
         <Image style={styles.img} source={require('../imagens/logo.png')} />

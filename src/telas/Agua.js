@@ -9,7 +9,7 @@ export function Agua({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Menu Icon */}
-      <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.openDrawer()}>
+      <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.navigate('Menu')}>
         <Ionicons name="menu" size={32} color="black" />
       </TouchableOpacity>
 
