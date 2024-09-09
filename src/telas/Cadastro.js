@@ -65,7 +65,6 @@ export function Cadastro ({navigation}) {
                     secureTextEntry
                     onChangeText={setPassword}
                     value={password}
-                    
                 />
           </View>   
           <View style={styles.inputContainer}>
@@ -75,7 +74,6 @@ export function Cadastro ({navigation}) {
                     secureTextEntry
                     onChangeText={setConfirmPassword}
                     value={confirmarSenha}
-                    
                 />
           </View>   
           <TouchableOpacity style={styles.button} onPress={Cadastrar}>

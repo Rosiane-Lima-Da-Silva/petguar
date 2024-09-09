@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Image, StyleSheet, View, Dimensions, Text } from 'react-native';
 
+
 const { width, height } = Dimensions.get('window');
 
 export function Index({ navigation }) {
