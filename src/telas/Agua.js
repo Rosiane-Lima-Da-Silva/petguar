@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // For the menu icon
+import { Ionicons } from '@expo/vector-icons'; // Para o ícone do menu
+import * as Progress from 'react-native-progress'; // Para o gráfico de progresso
+import mqtt from 'mqtt'; // Biblioteca MQTT
 
-// Get the screen dimensions
+// Obter as dimensões da tela
 const { width } = Dimensions.get('window');
 
 export function Agua({ navigation }) {
+  const [progress, setProgress] = useState(0); // Estado para armazenar a porcentagem
+
+  useEffect(() => {
+    // Conectar ao broker MQTT
+    const client = mqtt.connect('mqtt://broker.hivemq.com:1883'); // Exemplo de broker público
+
+    // Assinar o tópico que envia os dados de porcentagem
+    client.on('connect', () => {
+      client.subscribe('alimentador/porcentagem', (err) => {
+        if (!err) {
+          console.log('Conectado ao broker MQTT e inscrito no tópico');
+        }
+      });
+    });
+
+    // Atualizar o estado de progresso com os valores recebidos de MQTT
+    client.on('message', (topic, message) => {
+      if (topic === 'alimentador/porcentagem') {
+        const receivedValue = parseFloat(message.toString());
+        if (!isNaN(receivedValue)) {
+          setProgress(receivedValue / 100); // Atualizar o progresso com o valor entre 0 e 1
+        }
+      }
+    });
+
+    // Limpeza na desmontagem do componente
+    return () => {
+      client.end(); // Desconectar o cliente MQTT ao desmontar o componente
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* Menu Icon */}
@@ -13,14 +46,26 @@ export function Agua({ navigation }) {
         <Ionicons name="menu" size={32} color="black" />
       </TouchableOpacity>
 
-      {/* Centered Image */}
+      {/* Imagem Centralizada */}
       <Image style={styles.image} source={require('../imagens/logo.png')} />
 
-      {/* Title */}
+      {/* Título */}
       <Text style={styles.title}>Nivel da água</Text>
 
-      {/* Buttons */}
-      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => alert('Liberação Automática')}>
+      {/* Gráfico de Progresso */}
+      <Progress.Circle
+        size={120}
+        progress={progress} // Recebe o valor de progresso (entre 0 e 1)
+        showsText={true}
+        formatText={() => `${Math.round(progress * 100)}%`} // Mostra a porcentagem
+        color="#3FA5A0"
+        borderWidth={2}
+        thickness={8}
+        textStyle={{ fontWeight: 'bold', fontSize: 20 }}
+      />
+
+      {/* Botões */}
+      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => navigation.navigate('Horario')}>
         <Text style={styles.buttonText}>Programar Horário</Text>
       </TouchableOpacity>
 
@@ -42,19 +87,19 @@ const styles = StyleSheet.create({
   menuIcon: {
     position: 'absolute',
     top: 20,
-    left: 20, // Left side of the screen
+    left: 20, // Lado esquerdo da tela
     zIndex: 1,
   },
   image: {
     width: 120,
     height: 120,
-    marginBottom: 20, // Adds space between the image and the title
-    alignSelf: 'center', // Align the image to the center of the screen
+    marginBottom: 20, // Adiciona espaço entre a imagem e o título
+    alignSelf: 'center', // Alinhe a imagem ao centro da tela
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 40,
+    marginBottom: 20, // Espaço antes do gráfico de progresso
     textAlign: 'center',
     color: '#333',
   },
@@ -70,8 +115,8 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
-  // Responsiveness based on screen width
+  // Responsividade com base na largura da tela
   responsiveButton: {
-    width: width > 600 ? '40%' : '80%',  // 40% width on larger screens (PC), 80% on smaller screens (smartphone)
+    width: width > 600 ? '40%' : '80%',  // 40% de largura em telas maiores (PC), 80% em telas menores (smartphone)
   },
 });
