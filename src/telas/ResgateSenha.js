@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: '10%', 
         paddingVertical: 50,
         backgroundColor: '#f5f5f5',
+        flexDirection: 'column',
+        
     },
     title: {
         fontSize: 20,
@@ -65,21 +67,24 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 8,
         backgroundColor: '#fff',
-        marginBottom: 20,
+        marginBottom: 'auto',
         fontSize: 16,
+        textAlign: "center",
     },
     button: {
         backgroundColor: '#3FA5A0',
         borderRadius: 20,
-        padding: 10,
+        padding: 'auto',
         alignItems: 'center',
-        width: '30%',
+        width: '100%',
+        height: 50,
         alignSelf: 'center',
-        margin: '4%'
+        marginBottom: 'auto',
     },
     buttonText: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 14,
+        margin: 'auto'
     },
     img: {
         width: 140,
