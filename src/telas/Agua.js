@@ -65,7 +65,7 @@ export function Agua({ navigation }) {
       />
 
       {/* Botões */}
-      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => navigation.navigate('Horario')}>
+      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => navigation.navigate('HorarioAgua')}>
         <Text style={styles.buttonText}>Programar Horário</Text>
       </TouchableOpacity>
 

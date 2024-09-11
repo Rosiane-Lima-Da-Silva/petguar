@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons'; // Para o ícone de menu
 
 const { width } = Dimensions.get('window');
 
-export function Horario({ navigation }) {
+export function HorarioAgua ({ navigation }) {
   const [isAlarm1Enabled, setIsAlarm1Enabled] = useState(false);
   const [isAlarm2Enabled, setIsAlarm2Enabled] = useState(false);
   const [isAlarm3Enabled, setIsAlarm3Enabled] = useState(false);
@@ -34,11 +34,11 @@ export function Horario({ navigation }) {
       </TouchableOpacity>
 
       {/* Título */}
-      <Text style={styles.title}>Programar Horário</Text>
+      <Text style={styles.title}>Programar Horário da Água</Text>
 
       {/* Primeira opção de alarme */}
       <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Refeição  1</Text>
+        <Text style={styles.alarmTitle}>Água  1</Text>
         <Switch
           value={isAlarm1Enabled}
           onValueChange={value => setIsAlarm1Enabled(value)}
@@ -56,7 +56,7 @@ export function Horario({ navigation }) {
 
       {/* Segunda opção de alarme */}
       <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Refeição 2</Text>
+        <Text style={styles.alarmTitle}>Água 2</Text>
         <Switch
           value={isAlarm2Enabled}
           onValueChange={value => setIsAlarm2Enabled(value)}
@@ -74,7 +74,7 @@ export function Horario({ navigation }) {
 
       {/* Terceira opção de alarme */}
       <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Refeição 3</Text>
+        <Text style={styles.alarmTitle}>Água 3</Text>
         <Switch
           value={isAlarm3Enabled}
           onValueChange={value => setIsAlarm3Enabled(value)}

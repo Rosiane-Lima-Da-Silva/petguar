@@ -11,6 +11,8 @@ import {Porta} from './src/telas/Porta';
 import { Horario } from './src/telas/Horario';
 import { Menu } from './src/telas/Menu';
 import { ResgateSenha } from './src/telas/ResgateSenha';
+import { HorarioAgua } from './src/telas/HorarioAgua';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +37,7 @@ export default function App()  {
           <Stack.Screen  name='Horario' component={Horario}></Stack.Screen>  
           <Stack.Screen  name='Menu' component={Menu}></Stack.Screen> 
           <Stack.Screen  name='ResgateSenha' component={ResgateSenha}></Stack.Screen>
+          <Stack.Screen  name='HorarioAgua' component={HorarioAgua}></Stack.Screen>
 
         </Stack.Navigator>
       </NavigationContainer>

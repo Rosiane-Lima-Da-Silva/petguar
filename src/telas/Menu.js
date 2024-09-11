@@ -35,7 +35,7 @@ export function Menu ({ navigation }) {
       </TouchableOpacity>
 
       {/* Ícone de saída */}
-      <TouchableOpacity style={styles.exitIcon} onPress={() => alert('Sair')}>
+      <TouchableOpacity style={styles.exitIcon} onPress={() => navigation.navigate('Login')}>
         <Ionicons name="exit-outline" size={32} color="black" />
       </TouchableOpacity>
     </View>
