@@ -38,7 +38,7 @@ export function Horario({ navigation }) {
 
       {/* Primeira opção de alarme */}
       <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Refeição  1</Text>
+        <Text style={styles.alarmTitle}>Ração  1</Text>
         <Switch
           value={isAlarm1Enabled}
           onValueChange={value => setIsAlarm1Enabled(value)}
@@ -56,7 +56,7 @@ export function Horario({ navigation }) {
 
       {/* Segunda opção de alarme */}
       <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Refeição 2</Text>
+        <Text style={styles.alarmTitle}>Ração 2</Text>
         <Switch
           value={isAlarm2Enabled}
           onValueChange={value => setIsAlarm2Enabled(value)}
@@ -74,7 +74,7 @@ export function Horario({ navigation }) {
 
       {/* Terceira opção de alarme */}
       <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Refeição 3</Text>
+        <Text style={styles.alarmTitle}>Ração 3</Text>
         <Switch
           value={isAlarm3Enabled}
           onValueChange={value => setIsAlarm3Enabled(value)}

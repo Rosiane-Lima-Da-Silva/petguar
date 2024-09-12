@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Dimensions } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput } from "react-native";
 //import { auth } from "./firebase.config";
 import { app } from "./firebase.config";
 import { getAuth } from "firebase/auth";
