@@ -1,7 +1,9 @@
-// Import the functions you need from the SDKs you need
+// @ts-expect-error Some error with types in this import because of the versions
+import { getReactNativePersistence } from '@firebase/auth/dist/rn/index.js';
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { getAuth } from "firebase/auth";
+//import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { initializeAuth } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,11 +21,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+//export const firebase = initializeApp(firebaseConfig);
+//export const auth = getAuth(firebase);
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = initializeAuth(app, {
+
+initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 });
-const database = getDatabase();
-export { auth };
 
-export default database;
+export default app;

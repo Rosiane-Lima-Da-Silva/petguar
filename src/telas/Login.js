@@ -1,10 +1,12 @@
 
 import { useState } from "react";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Dimensions } from "react-native";
-import { auth } from "./firebase.config";
+//import { auth } from "./firebase.config";
+import { app } from "./firebase.config";
+import { getAuth } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-
+const auth = getAuth(app);
 
 export  function Login ({  navigation }) {
 
@@ -13,8 +15,8 @@ export  function Login ({  navigation }) {
     
 
 
-    function Logar () {
-        signInWithEmailAndPassword(auth, email, password)
+    async function Logar () {
+         signInWithEmailAndPassword(auth, email, password)
             .then((userCredencial) => {
                 const user =userCredencial;
                 alert('Login efetuado com sucesso!');
