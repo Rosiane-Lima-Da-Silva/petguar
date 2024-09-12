@@ -24,7 +24,7 @@ export  function Login ({  navigation }) {
                 navigation.navigate('Itens');
         })
         .catch((error) =>{
-            alert(error.message);
+            alert('Senha ou E-mail incorretos.');
         });
     }
         
