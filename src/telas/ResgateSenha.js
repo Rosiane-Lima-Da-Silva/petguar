@@ -1,30 +1,26 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, Image } from 'react-native';
-import { auth } from './firebase.config'; 
-import { sendPasswordResetEmail } from 'firebase/auth';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+//import { auth } from './firebase.config'; 
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+const auth = getAuth();
 
 export function ResgateSenha ({ navigation }) {
     const [email, setEmail] = useState('');
 
-    // Função para enviar o email de redefinição de senha
-    const handlePasswordReset = () => {
-        if (email === '') {
-            Alert.alert('Erro', 'Por favor, insira um e-mail válido.');
-            return;
+    const Resgatar = async () => {
+        try {
+            //Quando usa o wait, ele pausa a execução da funçaõ assíncrona, 
+            //até que a operação que está sendo aguardada seja concluída, retornando o
+            //resultado. Só pode ser usado dentro de uma função marcada como 
+            // async.
+          await sendPasswordResetEmail(auth, email);
+          alert("E-mail de redefinição de senha enviado!");
+          navigation.navigate("Login"); 
+        } catch (error) {
+          alert("Erro ao enviar o e-mail. Verifique se o e-mail está correto.");
         }
-
-        // Função do Firebase para enviar o e-mail de recuperação de senha
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                Alert.alert('E-mail de redefinição enviado!', 'Verifique sua caixa de entrada.');
-                navigation.navigate('Login'); 
-            })
-            .catch((error) => {
-                console.error(error);
-                Alert.alert('Erro', 'Não foi possível enviar o e-mail de redefinição.');
-            });
-    };
+      };
 
     return (
         <View style={styles.container}>
@@ -37,7 +33,7 @@ export function ResgateSenha ({ navigation }) {
                 onChangeText={setEmail}
                 keyboardType="email-address"
             />
-            <TouchableOpacity style={styles.button} onPress={handlePasswordReset}>
+            <TouchableOpacity style={styles.button} onPress={Resgatar}>
                 <Text style={styles.buttonText}>Enviar E-mail de Redefinição</Text>
             </TouchableOpacity>
         </View>
