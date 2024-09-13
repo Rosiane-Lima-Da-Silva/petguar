@@ -1,12 +1,33 @@
-
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Para o ícone de saída
 
 // Obter as dimensões da tela
 const { width } = Dimensions.get('window');
 
-export function Menu ({ navigation }) {
+export function Menu({ navigation }) {
+  // Função para lidar com a saída
+  const handleExit = () => {
+    // Exibe uma mensagem de confirmação
+    Alert.alert(
+      "Quer sair?", // Título
+      "Tem certeza de que deseja sair?", // Mensagem
+      [
+        {
+          text: "Sim", // Opção para sair
+          onPress: () => navigation.navigate('Login'), // Redireciona para a página de login
+
+        },
+        {
+          text: "Não", // Opção para permanecer na página
+          onPress: () => console.log("Cancelado"), // Ação quando o usuário pressiona "Não"
+          style: "cancel", // Cancelamento
+        },
+      ],
+      { cancelable: false } // Impede que o diálogo seja fechado tocando fora dele
+    );
+  };
+
   return (
     <View style={styles.container}>
       {/* Perfil com imagem, nome e email */}
@@ -35,7 +56,7 @@ export function Menu ({ navigation }) {
       </TouchableOpacity>
 
       {/* Ícone de saída */}
-      <TouchableOpacity style={styles.exitIcon} onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity style={styles.exitIcon} onPress={handleExit}>
         <Ionicons name="exit-outline" size={32} color="black" />
       </TouchableOpacity>
     </View>
@@ -49,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   profileContainer: {
-    flexDirection: 'row', // Coloca a imagem, nome e e-mail em uma linha
+    flexDirection: 'row', // Imagem, nome e e-mail em uma linha
     alignItems: 'center',
     marginBottom: 20,
   },
