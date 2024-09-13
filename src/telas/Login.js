@@ -1,16 +1,18 @@
-
 import { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput } from "react-native";
 //import { auth } from "./firebase.config";
 import { app } from "./firebase.config";
 import { signInWithEmailAndPassword, onAuthStateChanged, getAuth } from "firebase/auth";
 
+
 const auth = getAuth(app);
+
 
 export  function Login ({  navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+   
+
 
      // Verifica se o usuário já está autenticado
     useEffect(() => {
@@ -21,9 +23,12 @@ export  function Login ({  navigation }) {
       }
     });
 
+
     // Limpa o listener(onAuthStateChanged) quando o componente for desmontado
     return () =>subscrever();
     }, []);
+
+
 
 
     async function Logar () {
@@ -38,7 +43,8 @@ export  function Login ({  navigation }) {
             alert('Senha ou E-mail incorretos.');
         });
     }
-        
+       
+
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -46,13 +52,13 @@ export  function Login ({  navigation }) {
                 <Image style={styles.img} source={require('../imagens/logo.png')} />
                 <View style={styles.caixalogi}>
                     <Text style={styles.nomelogi}>Login</Text>
-                </View>       
-                <TextInput 
+                </View>      
+                <TextInput
                     placeholder='E-mail'
                     style={styles.input}
                     keyboardType="email-address"
                     value={email}
-                    onChangeText={(text) => setEmail(text)} 
+                    onChangeText={(text) => setEmail(text)}
                 />
                 <TextInput
                     placeholder='Senha'
@@ -80,6 +86,7 @@ export  function Login ({  navigation }) {
         </ScrollView>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -147,7 +154,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         alignSelf: 'center',
-    }, 
+    },
     text: {
         color: 'white',
         fontSize: 14,
@@ -158,8 +165,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 14,
     },
-          
+         
 });
-
 
 

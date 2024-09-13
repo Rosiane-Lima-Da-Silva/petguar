@@ -43,10 +43,10 @@ export function Menu({ navigation }) {
       <Text style={styles.title}>Configurações</Text>
 
       {/* Opções */}
-      <TouchableOpacity style={[styles.option, styles.responsiveOption]} onPress={() => alert('Opção 1')}>
-        <Text style={styles.optionText}>Opção 1</Text>
+      <TouchableOpacity style={[styles.option, styles.responsiveOption]} onPress={() => navigation.navigate('Dashboard')}>
+        <Text style={styles.optionText}>Atualizar dados</Text>
       </TouchableOpacity>
-
+      
       <TouchableOpacity style={[styles.option, styles.responsiveOption]} onPress={() => alert('Opção 2')}>
         <Text style={styles.optionText}>Opção 2</Text>
       </TouchableOpacity>
