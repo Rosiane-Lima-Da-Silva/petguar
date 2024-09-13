@@ -1,31 +1,56 @@
 import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image, Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Para o ícone de saída
+import { Ionicons } from '@expo/vector-icons'; // Ícone de saída
+import { getAuth, signOut } from "firebase/auth"; // Importar o método signOut do Firebase
 
-// Obter as dimensões da tela
+// pegar as dimensões da tela
 const { width } = Dimensions.get('window');
+
+// Função para realizar o logout
+const logout = (navigation) => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      // Passou no logout, vai para a tela de login
+      navigation.navigate('Login');
+    })
+    .catch((error) => {
+      // Tratar erros de logout, se necessário
+      console.log('Erro ao sair:', error);
+    });
+};
 
 export function Menu({ navigation }) {
   // Função para lidar com a saída
   const handleExit = () => {
-    // Exibe uma mensagem de confirmação
-    Alert.alert(
-      "Quer sair?", // Título
-      "Tem certeza de que deseja sair?", // Mensagem
-      [
-        {
-          text: "Sim", // Opção para sair
-          onPress: () => navigation.navigate('Login'), // Redireciona para a página de login
-
-        },
-        {
-          text: "Não", // Opção para permanecer na página
-          onPress: () => console.log("Cancelado"), // Ação quando o usuário pressiona "Não"
-          style: "cancel", // Cancelamento
-        },
-      ],
-      { cancelable: false } // Impede que o diálogo seja fechado tocando fora dele
-    );
+    if (width > 600) {
+      // Para telas maiores (navegador ou tablet)
+      const userConfirmed = window.confirm("Tem certeza de que deseja sair?");
+      
+      if (userConfirmed) {
+        logout(navigation); // Chama a função logout
+      } else {
+        console.log("Cancelado");
+      }
+    } else {
+      // Para telas menores (dispositivos móveis)
+      Alert.alert(
+        "Quer sair?", // Título
+        "Tem certeza de que deseja sair?", // Mensagem
+        [
+          {
+            text: "Sim", // Opção para sair
+            onPress: () => logout(navigation), // Chama a função logout
+          },
+          {
+            text: "Não", // Opção para permanecer
+            onPress: () => console.log("Cancelado"),
+            style: "cancel", // Cancelamento
+          },
+        ],
+        { cancelable: false } // Impede que o diálogo seja fechado tocando fora dele
+      );
+    }
   };
 
   return (
@@ -70,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   profileContainer: {
-    flexDirection: 'row', // Imagem, nome e e-mail em uma linha
+    flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
   },
@@ -78,7 +103,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    marginRight: 20, // Espaço entre a imagem e o texto
+    marginRight: 20,
   },
   infoContainer: {
     flexDirection: 'column',
@@ -111,9 +136,8 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
-  // Responsividade com base na largura da tela
   responsiveOption: {
-    width: width > 600 ? '40%' : '100%',  // 40% de largura em telas maiores (PC), 100% em telas menores (smartphone)
+    width: width > 600 ? '40%' : '100%',
     alignSelf: 'center',
   },
   exitIcon: {

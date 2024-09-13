@@ -24,7 +24,7 @@ export  function Login ({  navigation }) {
     });
 
 
-    // Limpa o listener(onAuthStateChanged) quando o componente for desmontado
+    // Limpa o listener (onAuthStateChanged) quando o componente for desmontado
     return () =>subscrever();
     }, []);
 
