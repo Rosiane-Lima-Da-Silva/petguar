@@ -1,49 +1,43 @@
-import { useState, useEffect } from "react";
+import { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput } from "react-native";
-//import { auth } from "./firebase.config";
-import { app } from "./firebase.config";
-import { signInWithEmailAndPassword, onAuthStateChanged, getAuth } from "firebase/auth";
+import { auth } from "./firebase.config";
+//import { app } from "./firebase.config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
-const auth = getAuth(app);
+//const auth = getAuth(app);
 
 
 export  function Login ({  navigation }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
    
 
 
      // Verifica se o usuário já está autenticado
-    useEffect(() => {
-    const subscrever = onAuthStateChanged(auth, (user) => {
-      if (user) {
+    //useEffect(() => {
+    //const subscrever = onAuthStateChanged(auth, (user) => {
+      //if (user) {
         // Se o usuário já estiver autenticado, redireciona para a tela "Itens"
-        navigation.navigate("Itens");
-      }
-    });
+        //navigation.navigate("Itens");
+     // }
+    //});
 
 
     // Limpa o listener (onAuthStateChanged) quando o componente for desmontado
-    return () =>subscrever();
-    }, []);
-
-
+    //return () =>subscrever();
+    //}, []);
 
 
     async function Logar () {
-         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredencial) => {
-                const user =userCredencial;
-                alert('Login efetuado com sucesso!');
-                console.log(user);
-                navigation.navigate('Itens');
-        })
-        .catch((error) =>{
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            alert('Login efetuado com sucesso!');
+            navigation.navigate('Itens');
+        } catch (error) {
             alert('Senha ou E-mail incorretos.');
-        });
+        }
     }
-       
 
 
     return (

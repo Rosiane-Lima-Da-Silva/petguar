@@ -1,81 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { getAuth, updateProfile, deleteUser } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { auth } from './firebase.config';
+import { updateProfile, deleteUser } from "firebase/auth";
 
+export function Dashboard({ navigation }) {
+  const [nome, setNome] = useState('');
+  const [novoNome, setNovoNome] = useState('');
+  const [carregando, setCarregando] = useState(true);
 
-export  function  Dashboard ({navigation}) {
-  const [user, setUser] = useState(null);
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const auth = getAuth();
-  
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(setUser);
-
-    return () => unsubscribe();
+    const user = auth.currentUser;
+    if (user) {
+      setNome(user.displayName || 'Usuário sem nome');
+    }
+    setCarregando(false);
   }, []);
 
-  const handleUpdateProfile = async () => {
-    if (!user) return;
-
-    try {
-      await updateProfile(user, {
-        displayName: newEmail ? newEmail : user.displayName,
-        email: newEmail ? newEmail : user.email,
-      });
-
-      if (newPassword) {
-        await user.updatePassword(newPassword);
-      }
-
-      Alert.alert('Perfil atualizado com sucesso!');
-    } catch (error) {
-      Alert.alert('Erro ao atualizar perfil:', error.message);
-
+  function atualizarNome() {
+    const user = auth.currentUser;
+    if (user) {
+      updateProfile(user, { displayName: novoNome })
+        .then(() => {
+          setNome(novoNome);
+          alert('Nome atualizado com sucesso!');
+        })
+        .catch(error => {
+          alert('Erro ao atualizar nome: ' + error.message);
+        });
     }
-  };
+  }
 
-  const handleDeleteAccount = async () => {
-    if (!user) return;
-
-    try {
-      await deleteUser(user);
-      Alert.alert('Conta excluída com sucesso!');
-      navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert('Erro ao excluir conta:', error.message);
+  function deletarConta() {
+    const user = auth.currentUser;
+    if (user) {
+      deleteUser(user)
+        .then(() => {
+          alert('Conta deletada com sucesso!');
+          navigation.navigate('Login');
+        })
+        .catch(error => {
+          alert('Erro ao deletar a conta: ' + error.message);
+        });
     }
-  };
+  }
 
-  if (!user) return <Text>Carregando...</Text>;
+  if (carregando) {
+    return <Text>Carregando...</Text>;
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dashboard</Text>
-      <Text style={styles.label}>Email:</Text>
+      <Text style={styles.label}>Nome Atual:</Text>
+      <Text style={styles.value}>{nome}</Text>
+
       <TextInput
+        placeholder="Novo nome"
         style={styles.input}
-        value={newEmail}
-        onChangeText={setNewEmail}
-        placeholder="Novo e-mail (opcional)"
+        value={novoNome}
+        onChangeText={setNovoNome}
       />
-      <Text style={styles.label}>Nova Senha:</Text>
-      <TextInput
-        style={styles.input}
-        value={newPassword}
-        onChangeText={setNewPassword}
-        secureTextEntry
-        placeholder="Nova senha (opcional)"
-      />
-      <TouchableOpacity style={styles.button} onPress={handleUpdateProfile}>
-        <Text style={styles.buttonText}>Atualizar Perfil</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleDeleteAccount}>
-        <Text style={styles.buttonText}>Excluir Conta</Text>
-      </TouchableOpacity>
+      <Button title="Atualizar Nome" onPress={atualizarNome} />
+
+      <Button title="Deletar Conta" color="red" onPress={deletarConta} />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -84,32 +73,20 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#f5f5f5',
   },
-  title: {
-    fontSize: 24,
+  label: {
+    fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  value: {
+    fontSize: 16,
     marginBottom: 20,
   },
-  label: {
-    fontSize: 16,
-    marginVertical: 10,
-  },
   input: {
-    borderColor: 'black',
+    borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 10,
     marginBottom: 20,
   },
-  button: {
-    backgroundColor: '#3FA5A0',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-  },
 });
-

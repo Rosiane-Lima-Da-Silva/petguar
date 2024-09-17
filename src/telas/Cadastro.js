@@ -11,7 +11,7 @@ export function Cadastro ({navigation}) {
     const [confirmarSenha, setConfirmPassword] = useState('');
 
  
-    function Cadastrar  () {
+     function Cadastrar  () {
       if (name === '' ||email === ''|| password === ''|| confirmarSenha === '') {
         alert('Por favor, preencha todos os campos.');
           return;
@@ -20,15 +20,16 @@ export function Cadastro ({navigation}) {
       if(password !== confirmarSenha){
         alert('A senha e a confirmação de senha não são iguais');
         return;
+
       } else{
-        createUserWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, name,  email, password)
           .then((UserCredencial) =>{
             const user = UserCredencial.user;
             alert('O usuário ' + email + 'foi criado. faça o login');
-            navigation.navigate('Login');;
+            navigation.navigate('Login');
         })
         .catch((error)=>{
-          alert(error.message);
+        alert(error.message);
         });
           
       }
