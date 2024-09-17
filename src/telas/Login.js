@@ -1,33 +1,13 @@
 import { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput } from "react-native";
 import { auth } from "./firebase.config";
-//import { app } from "./firebase.config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
-
-//const auth = getAuth(app);
 
 
 export  function Login ({  navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
    
-
-
-     // Verifica se o usuário já está autenticado
-    //useEffect(() => {
-    //const subscrever = onAuthStateChanged(auth, (user) => {
-      //if (user) {
-        // Se o usuário já estiver autenticado, redireciona para a tela "Itens"
-        //navigation.navigate("Itens");
-     // }
-    //});
-
-
-    // Limpa o listener (onAuthStateChanged) quando o componente for desmontado
-    //return () =>subscrever();
-    //}, []);
-
 
     async function Logar () {
         try {

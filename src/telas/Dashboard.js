@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Image} from 'react-native';
 import { auth } from './firebase.config';
 import { updateProfile, deleteUser } from "firebase/auth";
 
@@ -7,6 +7,7 @@ export function Dashboard({ navigation }) {
   const [nome, setNome] = useState('');
   const [novoNome, setNovoNome] = useState('');
   const [carregando, setCarregando] = useState(true);
+  const { width } = Dimensions.get('window');
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -49,7 +50,8 @@ export function Dashboard({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, width > 600 ? styles.containerWide : styles.containerNarrow]}>
+      <Image style={styles.img} source={require('../imagens/logo.png')} />
       <Text style={styles.label}>Nome Atual:</Text>
       <Text style={styles.value}>{nome}</Text>
 
@@ -59,9 +61,14 @@ export function Dashboard({ navigation }) {
         value={novoNome}
         onChangeText={setNovoNome}
       />
-      <Button title="Atualizar Nome" onPress={atualizarNome} />
 
-      <Button title="Deletar Conta" color="red" onPress={deletarConta} />
+      <TouchableOpacity style={styles.button} onPress={atualizarNome}>
+        <Text style={styles.buttonText}>Atualizar Nome</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={deletarConta}>
+        <Text style={styles.buttonText}>Deletar Conta</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -70,8 +77,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    paddingHorizontal: '10%',
+    paddingVertical: 50,
     backgroundColor: '#f5f5f5',
+  },
+  containerWide: {
+    paddingHorizontal: '25%',  
+  },
+  containerNarrow: {
+    paddingHorizontal: '10%',
   },
   label: {
     fontSize: 18,
@@ -83,10 +97,35 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    borderRadius: 20,
+    fontSize: 20,
+    width: '90%',
     padding: 10,
-    marginBottom: 20,
+    margin: 10,
+    textAlign: 'center',
+    backgroundColor: 'lightgrey',
+    color: 'black',
+    alignSelf: 'center'
+  },
+  button: {
+    backgroundColor: '#3FA5A0',
+    borderRadius: 20,
+    padding: 10,
+    alignItems: 'center',
+    width: '60%',
+    alignSelf: 'center',
+    margin: '4%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 15,
+  },
+  img: {
+    width: 150,
+    height: 150,
+    marginBottom: 80,
+    alignSelf: 'center',
   },
 });
