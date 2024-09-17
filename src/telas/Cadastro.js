@@ -1,5 +1,5 @@
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import React, { useState } from 'react';
 import { View, TouchableOpacity,Text, TextInput, StyleSheet, ScrollView,Image } from 'react-native';
 import { auth } from './firebase.config';
@@ -11,7 +11,7 @@ export function Cadastro ({navigation}) {
     const [confirmarSenha, setConfirmPassword] = useState('');
 
  
-     function Cadastrar  () {
+     async function Cadastrar  () {
       if (name === '' ||email === ''|| password === ''|| confirmarSenha === '') {
         alert('Por favor, preencha todos os campos.');
           return;
@@ -22,20 +22,17 @@ export function Cadastro ({navigation}) {
         return;
 
       } else{
-        createUserWithEmailAndPassword(auth, name,  email, password)
-          .then((UserCredencial) =>{
-            const user = UserCredencial.user;
-            alert('O usuário ' + email + 'foi criado. faça o login');
-            navigation.navigate('Login');
-        })
-        .catch((error)=>{
-        alert(error.message);
-        });
-          
+        try {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+          await updateProfile(user, { displayName: name });
+          alert('O usuário ' + email + ' foi criado. Faça o login.');
+          navigation.navigate('Login');
+      } catch (error) {
+          alert('Erro ao cadastrar: ' + error.message);
       }
-       
-      
-    };
+  }
+}
     return(
         <ScrollView contentContainerStyle={styles.container}>    
           <Image style={styles.img} source={require('../imagens/logo.png')} />
