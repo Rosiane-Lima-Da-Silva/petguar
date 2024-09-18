@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Para o ícone do menu
 import * as Progress from 'react-native-progress'; // Para o gráfico de progresso
@@ -9,14 +9,15 @@ const { width } = Dimensions.get('window');
 
 export function Comida({ navigation }) {
   const [progress, setProgress] = useState(0); // Estado para armazenar a porcentagem
+  const [client, setClient] = useState(null); // Estado para armazenar o cliente MQTT
 
   useEffect(() => {
     // Conectar ao broker MQTT
-    const client = mqtt.connect('mqtt://broker.hivemq.com:1883'); // Exemplo de broker público
+    const mqttClient = mqtt.connect('mqtt://broker.hivemq.com:1883'); // Exemplo de broker público
 
     // Assinar o tópico que envia os dados de porcentagem
-    client.on('connect', () => {
-      client.subscribe('alimentador/porcentagem', (err) => {
+    mqttClient.on('connect', () => {
+      mqttClient.subscribe('alimentador/porcentagem', (err) => {
         if (!err) {
           console.log('Conectado ao broker MQTT e inscrito no tópico');
         }
@@ -24,7 +25,7 @@ export function Comida({ navigation }) {
     });
 
     // Atualizar o estado de progresso com os valores recebidos de MQTT
-    client.on('message', (topic, message) => {
+    mqttClient.on('message', (topic, message) => {
       if (topic === 'alimentador/porcentagem') {
         const receivedValue = parseFloat(message.toString());
         if (!isNaN(receivedValue)) {
@@ -33,11 +34,29 @@ export function Comida({ navigation }) {
       }
     });
 
+    // Armazenar o cliente no estado para uso posterior
+    setClient(mqttClient);
+
     // Limpeza na desmontagem do componente
     return () => {
-      client.end(); // Desconectar o cliente MQTT ao desmontar o componente
+      mqttClient.end(); // Desconectar o cliente MQTT ao desmontar o componente
     };
   }, []);
+
+  // Função para liberar ração via MQTT
+  const liberarRacao = () => {
+    if (client) {
+      client.publish('ativar/motor', 'on', (err) => {
+        if (err) {
+          console.error('Erro ao publicar no tópico:', err);
+        } else {
+          console.log('Comando para liberar ração enviado');
+        }
+      });
+    } else {
+      console.log('Cliente MQTT não está conectado');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -69,7 +88,7 @@ export function Comida({ navigation }) {
         <Text style={styles.buttonText}>Programar Horário</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => alert('Liberação Manual')}>
+      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={liberarRacao}>
         <Text style={styles.buttonText}>Pôr ração</Text>
       </TouchableOpacity>
     </View>
