@@ -88,7 +88,7 @@ export function Comida({ navigation }) {
         <Text style={styles.buttonText}>Programar Horário</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={liberarRacao}>
+      <TouchableOpacity style={[styles.button, styles.responsiveButton]} onPress={() => alert('Liberação Manual')}>
         <Text style={styles.buttonText}>Pôr ração</Text>
       </TouchableOpacity>
     </View>
