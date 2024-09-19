@@ -1,15 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Para o icon de menu
-
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Para armazenar o estado
 
 const { width } = Dimensions.get('window');
 
 export function Porta({ navigation }) {
   const [isDoorOpen, setIsDoorOpen] = useState(false);
 
-  const alternarPorta = () => {
-    setIsDoorOpen(!isDoorOpen);
+  useEffect(() => {
+    // Função para retornar o estado da porta ao iniciar a tela
+    const loadDoorState = async () => {
+      try {
+        const savedState = await AsyncStorage.getItem('doorState');
+        if (savedState !== null) {
+          setIsDoorOpen(JSON.parse(savedState)); // Restaurar o dado salvo
+        }
+      } catch (error) {
+        console.log('Erro ao carregar o estado da porta:', error);
+      }
+    };
+
+    loadDoorState();
+  }, []);
+
+  const alternarPorta = async () => {
+    const newState = !isDoorOpen;
+    setIsDoorOpen(newState);
+
+    try {
+      await AsyncStorage.setItem('doorState', JSON.stringify(newState)); // Salvar o novo estado
+    } catch (error) {
+      console.log('Erro ao salvar o estado da porta:', error);
+    }
   };
 
   return (
