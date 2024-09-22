@@ -14,7 +14,13 @@ describe("Testes de Componentes", () => {
 
 describe("Testes de Componentes", () => {
 
-    test("Testar se a tela abre de forma independente", () => {
+    test("Testar se a tela abre através de App", () => {
         render(<App/>);
     })
+
+    test("Testar se o texto de Index apareceu", ()=>{
+    render(<App />);
+    expect(screen.getByText("BEM VINDO")).toBeOnTheScreen();
+    })
+
 })
