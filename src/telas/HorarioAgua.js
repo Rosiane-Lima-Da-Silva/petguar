@@ -1,98 +1,124 @@
-import React, { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Switch, TextInput, Dimensions } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Para o ícone de menu
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, Switch, TextInput, Dimensions, Alert, FlatList } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 
-export function HorarioAgua ({ navigation }) {
-  const [isAlarm1Enabled, setIsAlarm1Enabled] = useState(false);
-  const [isAlarm2Enabled, setIsAlarm2Enabled] = useState(false);
-  const [isAlarm3Enabled, setIsAlarm3Enabled] = useState(false);
+export function HorarioAgua({ navigation }) {
+  const [alarms, setAlarms] = useState([]);
+  const [newAlarmTime, setNewAlarmTime] = useState('');
 
-  const [alarm1Time, setAlarm1Time] = useState('');
-  const [alarm2Time, setAlarm2Time] = useState('');
-  const [alarm3Time, setAlarm3Time] = useState('');
+  // Carregar alarmes da água
+  useEffect(() => {
+    const loadAlarms = async () => {
+      try {
+        const savedAlarms = await AsyncStorage.getItem('waterAlarms');
+        if (savedAlarms) {
+          setAlarms(JSON.parse(savedAlarms));
+        }
+      } catch (error) {
+        console.log('Erro ao carregar os alarmes de água:', error);
+      }
+    };
 
-  // Função para formatar o valor da entrada de tempo no formato HH:MM
-  const handleTimeInput = (value, setAlarmTime) => {
-    // Remove caracteres não numéricos
+    loadAlarms();
+  }, []);
+
+  // Função para salvar os alarmes no AsyncStorage
+  const saveAlarms = async (updatedAlarms) => {
+    try {
+      await AsyncStorage.setItem('waterAlarms', JSON.stringify(updatedAlarms));
+      setAlarms(updatedAlarms);
+    } catch (error) {
+      console.log('Erro ao salvar os alarmes de água:', error);
+    }
+  };
+
+  // Função para validar o formato de hora (HH:MM)
+  const validarHora = (hora) => {
+    const regex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    return regex.test(hora);
+  };
+
+  // Adicionar um novo alarme de água
+  const addAlarm = () => {
+    if (validarHora(newAlarmTime)) {
+      const newAlarm = { time: newAlarmTime, enabled: false };
+      const updatedAlarms = [...alarms, newAlarm];
+      saveAlarms(updatedAlarms);
+      setNewAlarmTime('');
+      Alert.alert('Alarme Adicionado', 'O novo alarme foi adicionado com sucesso!');
+    } else {
+      Alert.alert('Erro', 'Por favor, insira um horário válido no formato HH:MM.');
+    }
+  };
+
+  // Atualizar estado de alarme (ligado/desligado)
+  const toggleAlarm = (index) => {
+    const updatedAlarms = alarms.map((alarm, i) =>
+      i === index ? { ...alarm, enabled: !alarm.enabled } : alarm
+    );
+    saveAlarms(updatedAlarms);
+  };
+
+  // Deletar um alarme
+  const deleteAlarm = (index) => {
+    const updatedAlarms = alarms.filter((_, i) => i !== index);
+    saveAlarms(updatedAlarms);
+  };
+
+  // Formatar entrada de tempo
+  const handleTimeInput = (value) => {
     const cleaned = value.replace(/[^0-9]/g, '');
 
-    // Limitar a 4 dígitos
     if (cleaned.length <= 4) {
-      // Adicionar ":" após o segundo dígito
       const formatted = cleaned.replace(/(\d{2})(\d{0,2})/, '$1:$2');
-      setAlarmTime(formatted);
+      setNewAlarmTime(formatted);
     }
   };
 
   return (
     <View style={styles.container}>
-      {/* Icon do menu */}
+      {/* Menu */}
       <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.navigate('Menu')}>
         <Ionicons name="menu" size={32} color="black" />
       </TouchableOpacity>
 
-      {/* Título */}
       <Text style={styles.title}>Programar Horário da Água</Text>
 
-      {/* Primeira opção de alarme */}
-      <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Água  1</Text>
-        <Switch
-          value={isAlarm1Enabled}
-          onValueChange={value => setIsAlarm1Enabled(value)}
-        />
+      {/* Adicionar novo alarme */}
+      <View style={styles.newAlarmContainer}>
         <TextInput
           style={styles.input}
           placeholder="HH:MM"
           keyboardType="numeric"
-          value={alarm1Time}
-          onChangeText={(value) => handleTimeInput(value, setAlarm1Time)}
-          editable={isAlarm1Enabled}
-          maxLength={5} // Limitar a entrada a 5 caracteres (incluindo ":")
+          value={newAlarmTime}
+          onChangeText={handleTimeInput}
+          maxLength={5}
         />
+        <TouchableOpacity style={styles.addButton} onPress={addAlarm}>
+          <Text style={styles.addButtonText}>Adicionar hidratação</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Segunda opção de alarme */}
-      <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Água 2</Text>
-        <Switch
-          value={isAlarm2Enabled}
-          onValueChange={value => setIsAlarm2Enabled(value)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="HH:MM"
-          keyboardType="numeric"
-          value={alarm2Time}
-          onChangeText={(value) => handleTimeInput(value, setAlarm2Time)}
-          editable={isAlarm2Enabled}
-          maxLength={5} 
-        />
-      </View>
+      {/* Lista de alarmes */}
+      <FlatList
+        data={alarms}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <View style={styles.alarmContainer}>
+            <Text style={styles.alarmTime}>{item.time}</Text>
+            <Switch value={item.enabled} onValueChange={() => toggleAlarm(index)} />
+            <TouchableOpacity onPress={() => deleteAlarm(index)}>
+              <Ionicons name="trash" size={24} color="red" />
+            </TouchableOpacity>
+          </View>
+        )}
+        ListEmptyComponent={<Text>Nenhum alarme adicionado.</Text>}
+      />
 
-      {/* Terceira opção de alarme */}
-      <View style={styles.alarmContainer}>
-        <Text style={styles.alarmTitle}>Água 3</Text>
-        <Switch
-          value={isAlarm3Enabled}
-          onValueChange={value => setIsAlarm3Enabled(value)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="HH:MM"
-          keyboardType="numeric"
-          value={alarm3Time}
-          onChangeText={(value) => handleTimeInput(value, setAlarm3Time)}
-          editable={isAlarm3Enabled}
-          maxLength={5} 
-        />
-      </View>
-      
-
-      {/* Botão Pronto */}
-      <TouchableOpacity style={styles.readyButton} onPress={() => alert('horários configurados!')}>
+      <TouchableOpacity style={styles.readyButton} onPress={() => alert('Horários de água configurados!')}>
         <Text style={styles.readyButtonText}>Pronto</Text>
       </TouchableOpacity>
     </View>
@@ -120,6 +146,33 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333',
   },
+  newAlarmContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: width > 600 ? '50%' : '80%',
+    marginBottom: 20,
+  },
+  input: {
+    backgroundColor: '#fff',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 100,
+    height: 40,
+    textAlign: 'center',
+  },
+  addButton: {
+    backgroundColor: '#3FA5A0',
+    padding: 10,
+    borderRadius: 45,
+    marginLeft: 10,
+  },
+  addButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   alarmContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -130,19 +183,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#e0e0e0',
   },
-  alarmTitle: {
+  alarmTime: {
     fontSize: 18,
     color: '#333',
-  },
-  input: {
-    backgroundColor: '#fff',
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 80,
-    height: 40,
-    textAlign: 'center',
-    marginLeft: 10,
   },
   readyButton: {
     backgroundColor: '#3FA5A0',
